@@ -1,0 +1,10 @@
+[
+  {
+    "groupName": "wavemaster",
+    "precedence": 1
+  },
+  {
+    "groupName": "wavemaker",
+    "precedence": 2
+  }
+]

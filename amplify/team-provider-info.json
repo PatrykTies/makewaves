@@ -10,6 +10,14 @@
       "StackName": "amplify-makewaves-dev-161017",
       "StackId": "arn:aws:cloudformation:eu-west-2:426813570066:stack/amplify-makewaves-dev-161017/455e72d0-873b-11eb-b27c-027695c7d5b2",
       "AmplifyAppId": "d2k0mpa4p1jht0"
+    },
+    "categories": {
+      "function": {
+        "makewaves5aede8c55aede8c5PostConfirmation": {}
+      },
+      "auth": {
+        "makewaves5aede8c55aede8c5": {}
+      }
     }
   }
 }
