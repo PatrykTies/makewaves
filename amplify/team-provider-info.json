@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-makewaves-dev-161017-authRole",
+      "UnauthRoleArn": "arn:aws:iam::426813570066:role/amplify-makewaves-dev-161017-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::426813570066:role/amplify-makewaves-dev-161017-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-makewaves-dev-161017-deployment",
+      "UnauthRoleName": "amplify-makewaves-dev-161017-unauthRole",
+      "StackName": "amplify-makewaves-dev-161017",
+      "StackId": "arn:aws:cloudformation:eu-west-2:426813570066:stack/amplify-makewaves-dev-161017/455e72d0-873b-11eb-b27c-027695c7d5b2",
+      "AmplifyAppId": "d2k0mpa4p1jht0"
+    }
+  }
+}

@@ -1,15 +1,11 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import Amplify from 'aws-amplify';
+import config from './aws-exports';
+Amplify.configure(config);
+
+import {StatusBar, StyleSheet, useColorScheme} from 'react-native';
 import RootNavigator from './src/Navigation/Root';
 
 const App: () => Node = () => {
