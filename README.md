@@ -1,2 +1,2 @@
 # makewaves
-React Native, AWS Amplify, notifications, admin auth
+React Native, AWS Amplify, push notifications, admin auth
