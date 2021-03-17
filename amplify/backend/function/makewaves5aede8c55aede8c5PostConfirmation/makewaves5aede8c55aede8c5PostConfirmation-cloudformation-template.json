@@ -102,7 +102,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-makewaves-dev-161017-deployment",
-          "S3Key": "amplify-builds/makewaves5aede8c55aede8c5PostConfirmation-752f6773696a474d4955-build.zip"
+          "S3Key": "amplify-builds/makewaves5aede8c55aede8c5PostConfirmation-774b3462346176716875-build.zip"
         }
       }
     },
