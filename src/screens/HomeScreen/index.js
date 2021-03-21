@@ -1,5 +1,11 @@
-import Auth from '@aws-amplify/auth';
-import React, {useEffect, useState, useReducer, useCallback} from 'react';
+import Amplify, {Auth, API} from 'aws-amplify';
+import React, {
+  useEffect,
+  useState,
+  useReducer,
+  useCallback,
+  Alert,
+} from 'react';
 import {
   Text,
   View,
@@ -59,6 +65,34 @@ const HomeScreen = () => {
     formIsValid: false,
   });
 
+  // HOW TO ADD ADMIN REST API with Amplify Auth, for add and retrieve users
+  // https://aws.amazon.com/blogs/mobile/amplify-cli-enables-creating-amazon-cognito-user-pool-groups-configuring-fine-grained-permissions-on-groups-and-adding-user-management-capabilities-to-applications/
+  useEffect(() => {
+    let nextToken;
+    const listUsers = async limit => {
+      let apiName = 'AdminQueries';
+      let path = '/listUsersInGroup';
+      let myInit = {
+        queryStringParameters: {
+          groupname: 'wavemaker',
+          limit: limit,
+          token: nextToken,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${(await Auth.currentSession())
+            .getAccessToken()
+            .getJwtToken()}`,
+        },
+      };
+      const {NextToken, ...rest} = await API.get(apiName, path, myInit);
+      nextToken = NextToken;
+      return rest;
+    };
+    const users = listUsers(10);
+    console.log(users);
+  }, [setUsers]);
+
   const inputChangeHandler = useCallback(
     (inputIdentifier, inputValue, inputValidity) => {
       console.log('FORM_INPUT_UPDATE');
@@ -73,23 +107,35 @@ const HomeScreen = () => {
   );
 
   const submitHandler = () => {
+    Keyboard.dismiss();
     // if (!formState.formIsValid) {
     //   Alert.alert('Wrong input!', 'Please check the errors in the form.', [
     //     {text: 'Okay'},
     //   ]);
     //   return;
     // }
-    Keyboard.dismiss();
-    // Alert.alert(formState.inputValues.email);
-    console.log(formState);
-    setUsers(state => [...state, formState.inputValues]);
 
-    // Auth.addUser(
-    //   prodId,
-    // formState.inputValues.title,
-    // formState.inputValues.description,
-    // formState.inputValues.imageUrl,
-    // )
+    // https://github.com/aws-amplify/amplify-cli/issues/3951
+    const addUserToGroup = async groupName => {
+      const apiName = 'AdminQueries';
+      const path = '/addUserToGroup';
+      const myInit = {
+        body: {
+          username: 'anetaties@gmail.com',
+          groupname: groupName,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${(await Auth.currentSession())
+            .getAccessToken()
+            .getJwtToken()}`,
+        },
+      };
+      return await API.post(apiName, path, myInit);
+    };
+    const res = addUserToGroup('wavemaker');
+    console.log(res);
+    //setUsers(state => [...state, formState.inputValues]);
   };
 
   return (

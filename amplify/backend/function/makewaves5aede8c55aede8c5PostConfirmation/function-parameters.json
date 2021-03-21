@@ -7,10 +7,11 @@
   "functionName": "makewaves5aede8c55aede8c5PostConfirmation",
   "resourceName": "makewaves5aede8c55aede8c5PostConfirmation",
   "parentStack": "auth",
-  "triggerEnvs": [],
+  "triggerEnvs": "[]",
   "triggerDir": "/Users/patrykties/.nvm/versions/node/v12.13.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
   "triggerTemplate": "PostConfirmation.json.ejs",
   "roleName": "makewaves5aede8c55aede8c5PostConfirmation",
   "skipEdit": true,
-  "enableCors": false
+  "enableCors": false,
+  "triggerEventPath": "PostConfirmation.event.json"
 }
