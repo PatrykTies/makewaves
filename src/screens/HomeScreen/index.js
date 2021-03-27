@@ -89,8 +89,15 @@ const HomeScreen = () => {
       nextToken = NextToken;
       return rest;
     };
-    const users = listUsers(10);
-    console.log(users);
+
+    const getUsers = async () => {
+      const normal_users = await listUsers(10);
+      console.log(normal_users.Users[0].Attributes[4].Value);
+    };
+
+    getUsers();
+
+    //setUsers(normal_users);
   }, [setUsers]);
 
   const inputChangeHandler = useCallback(
@@ -106,7 +113,33 @@ const HomeScreen = () => {
     [dispatchFormState],
   );
 
-  const submitHandler = () => {
+  const addUserToGroup = async groupName => {
+    const apiName = 'AdminQueries';
+    const path = '/addUserToGroup';
+    const myInit = {
+      body: {
+        username: 'anetaties@gmail.com',
+        groupname: groupName,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${(await Auth.currentSession())
+          .getAccessToken()
+          .getJwtToken()}`,
+      },
+    };
+    return await API.post(apiName, path, myInit);
+  };
+
+  const signOut = async () => {
+    try {
+      await Auth.signOut();
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  };
+
+  const submitHandler = async () => {
     Keyboard.dismiss();
     // if (!formState.formIsValid) {
     //   Alert.alert('Wrong input!', 'Please check the errors in the form.', [
@@ -116,24 +149,24 @@ const HomeScreen = () => {
     // }
 
     // https://github.com/aws-amplify/amplify-cli/issues/3951
-    const addUserToGroup = async groupName => {
-      const apiName = 'AdminQueries';
-      const path = '/addUserToGroup';
-      const myInit = {
-        body: {
-          username: 'anetaties@gmail.com',
-          groupname: groupName,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `${(await Auth.currentSession())
-            .getAccessToken()
-            .getJwtToken()}`,
+    const signUp = async () => {
+      const user = {
+        username: 'anetaties@gmail.com',
+        password: '01Misiek10',
+        attributes: {
+          email: 'anetaties@gmail.com',
+          phone_number: '+4407891397145',
         },
       };
-      return await API.post(apiName, path, myInit);
+      try {
+        await Auth.signUp(user);
+        console.log('Aneta signed up!');
+      } catch (e) {
+        console.log(e);
+      }
     };
-    const res = addUserToGroup('wavemaker');
+    signUp();
+    const res = await addUserToGroup('wavemaker');
     console.log(res);
     //setUsers(state => [...state, formState.inputValues]);
   };
@@ -168,6 +201,7 @@ const HomeScreen = () => {
         />
         <Icon name="rocket" size={30} color="#900" />
         <Button title="Add user" onPress={submitHandler} />
+        <Button title="Sign out" onPress={signOut} />
         {users &&
           users.map((user, i) => {
             return (
