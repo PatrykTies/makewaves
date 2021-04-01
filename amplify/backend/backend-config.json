@@ -18,6 +18,11 @@
           ]
         }
       ]
+    },
+    "makewaves5aede8c55aede8c5PreSignup": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "auth": {
@@ -44,6 +49,15 @@
         {
           "category": "function",
           "resourceName": "makewaves5aede8c55aede8c5PostConfirmation",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "makewaves5aede8c55aede8c5PreSignup",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",

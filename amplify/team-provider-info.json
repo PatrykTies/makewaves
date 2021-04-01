@@ -13,7 +13,8 @@
     },
     "categories": {
       "function": {
-        "makewaves5aede8c55aede8c5PostConfirmation": {}
+        "makewaves5aede8c55aede8c5PostConfirmation": {},
+        "makewaves5aede8c55aede8c5PreSignup": {}
       },
       "auth": {
         "makewaves5aede8c55aede8c5": {}
