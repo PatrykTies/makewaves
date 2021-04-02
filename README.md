@@ -51,6 +51,10 @@ Open Android studio -> AVD Manager -> press "play" button on emulator you want.
 
 Debugging can be enabled only from one emulator, otherwise you wont be able to have both open - one will error.
 
+## Adding custom fonts
+
+https://medium.com/@aravindmnair/add-custom-fonts-to-react-native-0-60-easily-in-3-steps-fcd71459f4c9
+
 ## License
 
 [apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
