@@ -2,6 +2,12 @@
 
 React Native, AWS Amplify, push notifications, admin auth
 
+# To start - use 3 separte terminals
+
+npx react-native start
+npm run ios
+npm run android
+
 ## Android studio install guide
 
 [android-studio](https://developer.android.com/studio/install)
@@ -58,3 +64,12 @@ https://medium.com/@aravindmnair/add-custom-fonts-to-react-native-0-60-easily-in
 ## License
 
 [apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
+
+# Known issues
+
+1.Fonts conflict with react-native-icons 2. Android read fonts in fontFamily from file name
+iOS read fonts in fontFamily from font name, NOT A FILENAME
+eg: Android -> fontFamily: 'SF-Pro-Display-Ultralight',
+iOS -> fontFamily: 'SF Pro Display Ultralight',
+This happen to only few fonts , it works OK for most fonts for both OS
+https://stackoverflow.com/questions/42410354/unrecognized-font-family-on-ios-simulator-with-react-native

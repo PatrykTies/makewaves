@@ -13,8 +13,9 @@ import {
   Button,
   StyleSheet,
   Keyboard,
+  ImageBackground,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
 import Input from '../../components/Input';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
@@ -172,53 +173,79 @@ const HomeScreen = () => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.form}>
-        <Input
-          email
-          id="email"
-          label="Email"
-          errorText="Please enter a valid email!"
-          keyboardType="default"
-          autoCapitalize="none"
-          returnKeyType="next"
-          onInputChange={inputChangeHandler}
-          initialValue={''}
-          initiallyValid
-          required
-        />
-        <Input
-          id="username"
-          label="Username"
-          errorText="Please enter a valid username!"
-          keyboardType="default"
-          autoCapitalize="sentences"
-          returnKeyType="next"
-          onInputChange={inputChangeHandler}
-          initialValue={''}
-          initiallyValid
-          required
-        />
-        <Icon name="rocket" size={30} color="#900" />
-        <Button title="Add user" onPress={submitHandler} />
-        <Button title="Sign out" onPress={signOut} />
-        {users &&
-          users.map((user, i) => {
-            return (
-              <View key={user.email + i}>
-                <Text>{user.email}</Text>
-                <Text>{user.username}</Text>
-              </View>
-            );
-          })}
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <ImageBackground
+        source={require('../../assets/homepage_hero_375.jpg')}
+        style={styles.image}>
+        <Text style={styles.title}>Keep calm and make waves</Text>
+        <View style={styles.form}>
+          <Input
+            email
+            id="email"
+            label="Email"
+            errorText="Please enter a valid email!"
+            keyboardType="default"
+            autoCapitalize="none"
+            returnKeyType="next"
+            onInputChange={inputChangeHandler}
+            initialValue={''}
+            initiallyValid
+            required
+          />
+          <Input
+            id="username"
+            label="Username"
+            errorText="Please enter a valid username!"
+            keyboardType="default"
+            autoCapitalize="sentences"
+            returnKeyType="next"
+            onInputChange={inputChangeHandler}
+            initialValue={''}
+            initiallyValid
+            required
+          />
+          <Button title="Add user" onPress={submitHandler} />
+          <Button title="Sign out" onPress={signOut} />
+          {users &&
+            users.map((user, i) => {
+              return (
+                <View key={user.email + i}>
+                  <Text>{user.email}</Text>
+                  <Text>{user.username}</Text>
+                </View>
+              );
+            })}
+        </View>
+      </ImageBackground>
+    </View>
   );
 };
 
+const getFontFamily = font => {
+  return font;
+};
+
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  title: {
+    fontFamily: 'SFProDisplay-Ultralight',
+    lineHeight: 38,
+    fontSize: 28,
+    alignSelf: 'center',
+    paddingTop: 50,
+    paddingBottom: 50,
+  },
   form: {
+    height: '40%',
+    padding: 20,
     margin: 20,
+    backgroundColor: 'white',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
   },
 });
 
