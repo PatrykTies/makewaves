@@ -24,11 +24,14 @@ const TextField = ({icon, label, error, touched, ...props}) => {
           <Icon name={icon} size={16} color={colors.primary} />
         </Box>
         <TextInput
+          {...props}
           underlineColorAndroid="transparent"
           style={{width: '100%', height: '100%', fontSize: fontSize.lg}}
-          {...props}
         />
       </Card>
+      <Text variant="error" style={{alignSelf: 'flex-start'}}>
+        error stuff
+      </Text>
     </>
   );
 };

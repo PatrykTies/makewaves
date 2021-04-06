@@ -11,6 +11,7 @@ const palette = {
   black: '#0B0B0B',
   grey: '#909190',
   blue: '#0000ff',
+  red: 'red',
   none: 'transparent',
 };
 
@@ -26,6 +27,7 @@ const theme = createTheme({
     none: palette.none,
     black: palette.black,
     shadow: palette.grey,
+    error: palette.red,
   },
   spacing: {
     sm: 8,
@@ -93,6 +95,12 @@ const theme = createTheme({
       lineHeight: 28,
       letterSpacing: 2,
       color: 'textPrimary',
+    },
+    error: {
+      fontFamily: 'SFProDisplay-Regular',
+      fontSize: 16,
+      lineHeight: 22,
+      color: 'error',
     },
   },
 });
