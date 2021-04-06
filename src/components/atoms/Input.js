@@ -1,5 +1,5 @@
 import React, {useReducer, useEffect} from 'react';
-import {ScrollView, Text, TextInput, StyleSheet} from 'react-native';
+import {View, ScrollView, Text, TextInput, StyleSheet} from 'react-native';
 
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const INPUT_BLUR = 'INPUT_BLUR';
@@ -65,7 +65,7 @@ const Input = props => {
   };
 
   return (
-    <ScrollView keyboardShouldPersistTaps="never" style={styles.formControl}>
+    <View keyboardShouldPersistTaps="never" style={styles.formControl}>
       <Text style={styles.label}>{props.label}</Text>
       <TextInput
         {...props}
@@ -75,7 +75,7 @@ const Input = props => {
         onBlur={lostFocusHandler}
       />
       {!inputState.isValid && <Text>{props.errorText}</Text>}
-    </ScrollView>
+    </View>
   );
 };
 
@@ -91,6 +91,9 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
+  },
+  marginBottom: {
+    marginBottom: 25,
   },
 });
 

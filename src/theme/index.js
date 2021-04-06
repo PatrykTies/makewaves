@@ -1,40 +1,78 @@
-import {createTheme} from '@shopify/restyle';
+import {
+  createTheme,
+  createBox,
+  createText,
+  createRestyleComponent,
+  createVariant,
+} from '@shopify/restyle';
 
 const palette = {
-  purpleLight: '#8C6FF7',
-  purplePrimary: '#5A31F4',
-  purpleDark: '#3F22AB',
-
-  greenLight: '#56DCBA',
-  greenPrimary: '#0ECD9D',
-  greenDark: '#0A906E',
-
+  white: 'white',
   black: '#0B0B0B',
-  white: '#F0F2F3',
+  grey: '#909190',
+  blue: '#0000ff',
+  none: 'transparent',
 };
 
 const theme = createTheme({
   colors: {
-    mainBackground: palette.white,
-    cardPrimaryBackground: palette.purplePrimary,
+    primaryBckgr: palette.white,
+    secondaryBckgr: palette.grey,
+    textPrimary: palette.black,
+    textPrimaryInverse: palette.white,
+    textDecorated: palette.blue,
+    primary: palette.blue,
+    primary_inverse: palette.white,
+    none: palette.none,
+    black: palette.black,
+    shadow: palette.grey,
   },
   spacing: {
-    s: 8,
-    m: 16,
-    l: 24,
+    sm: 8,
+    md: 16,
+    lg: 24,
     xl: 40,
+  },
+  fontSize: {
+    sm: 8,
+    md: 16,
+    lg: 20,
+    xl: 28,
   },
   breakpoints: {
     phone: 0,
     tablet: 768,
   },
+  cardVariants: {
+    shadow_md: {
+      shadowColor: 'black',
+      shadowOffset: {width: 0, height: 2},
+      shadowRadius: 6,
+      shadowOpacity: 0.26,
+      elevation: 10,
+    },
+    shadow_s: {
+      shadowColor: 'shadow',
+      shadowOffset: {width: 0, height: 2},
+      shadowRadius: 3,
+      shadowOpacity: 0.26,
+      elevation: 6,
+    },
+  },
   textVariants: {
-    header: {
-      fontFamily: 'ShopifySans-Bold',
-      fontWeight: 'bold',
-      fontSize: 34,
+    h1: {
+      fontFamily: 'SFProDisplay-SemiBold',
+      fontWeight: '400',
+      fontSize: 28,
       lineHeight: 42.5,
-      color: 'black',
+      color: 'textPrimary',
+    },
+    h1_deco: {
+      fontFamily: 'SFProDisplay-SemiBold',
+      fontWeight: '400',
+      fontSize: 28,
+      lineHeight: 42.5,
+      color: 'textDecorated',
     },
     subheader: {
       fontFamily: 'ShopifySans-SemiBold',
@@ -44,12 +82,26 @@ const theme = createTheme({
       color: 'black',
     },
     body: {
-      fontFamily: 'ShopifySans',
+      fontFamily: 'SFProDisplay-Regular',
       fontSize: 16,
-      lineHeight: 24,
-      color: 'black',
+      lineHeight: 28,
+      color: 'textPrimary',
+    },
+    cta: {
+      fontFamily: 'SFProDisplay-Regular',
+      fontSize: 16,
+      lineHeight: 28,
+      letterSpacing: 2,
+      color: 'textPrimary',
     },
   },
 });
+
+export const Box = createBox();
+export const Text = createText();
+export const Card = createRestyleComponent(
+  [createVariant({themeKey: 'cardVariants'})],
+  Box,
+);
 
 export default theme;

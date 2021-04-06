@@ -72,4 +72,6 @@ iOS read fonts in fontFamily from font name, NOT A FILENAME
 eg: Android -> fontFamily: 'SF-Pro-Display-Ultralight',
 iOS -> fontFamily: 'SF Pro Display Ultralight',
 This happen to only few fonts , it works OK for most fonts for both OS
+https://dev.to/kennymark/using-custom-fonts-in-react-native-21j7
+and
 https://stackoverflow.com/questions/42410354/unrecognized-font-family-on-ios-simulator-with-react-native

@@ -1,4 +1,5 @@
 import Amplify, {Auth, API} from 'aws-amplify';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import React, {
   useEffect,
   useState,
@@ -7,7 +8,6 @@ import React, {
   Alert,
 } from 'react';
 import {
-  Text,
   View,
   ScrollView,
   Button,
@@ -16,7 +16,8 @@ import {
   ImageBackground,
 } from 'react-native';
 //import Icon from 'react-native-vector-icons/FontAwesome';
-import Input from '../../components/Input';
+import Input from '../../components/atoms/Input';
+import {Text, Box} from '../../theme';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 const ADD_USER = 'ADD_USER';
@@ -173,69 +174,73 @@ const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require('../../assets/homepage_hero_375.jpg')}
-        style={styles.image}>
-        <Text style={styles.title}>Keep calm and make waves</Text>
-        <View style={styles.form}>
-          <Input
-            email
-            id="email"
-            label="Email"
-            errorText="Please enter a valid email!"
-            keyboardType="default"
-            autoCapitalize="none"
-            returnKeyType="next"
-            onInputChange={inputChangeHandler}
-            initialValue={''}
-            initiallyValid
-            required
-          />
-          <Input
-            id="username"
-            label="Username"
-            errorText="Please enter a valid username!"
-            keyboardType="default"
-            autoCapitalize="sentences"
-            returnKeyType="next"
-            onInputChange={inputChangeHandler}
-            initialValue={''}
-            initiallyValid
-            required
-          />
-          <Button title="Add user" onPress={submitHandler} />
-          <Button title="Sign out" onPress={signOut} />
-          {users &&
-            users.map((user, i) => {
-              return (
-                <View key={user.email + i}>
-                  <Text>{user.email}</Text>
-                  <Text>{user.username}</Text>
-                </View>
-              );
-            })}
-        </View>
-      </ImageBackground>
-    </View>
+    <KeyboardAwareScrollView scrollEnabled={false}>
+      <Box flex={1} overflow="hidden">
+        <ImageBackground
+          source={require('../../assets/homepage_hero_375.jpg')}
+          style={styles.image}>
+          <Box alignItems="center" paddingVertical="xl" backgroundColor="none">
+            <Text variant="h1">
+              Keep calm and <Text variant="h1_deco">make waves</Text>
+            </Text>
+          </Box>
+          <Box
+            alignItems="center"
+            paddingVertical="xl"
+            backgroundColor="primaryBckgr">
+            <Input
+              email
+              id="email"
+              label="Email"
+              errorText="Please enter a valid email!"
+              keyboardType="default"
+              autoCapitalize="none"
+              returnKeyType="next"
+              onInputChange={inputChangeHandler}
+              initialValue={''}
+              initiallyValid
+              required
+            />
+            <Input
+              id="username"
+              label="Username"
+              errorText="Please enter a valid username!"
+              keyboardType="default"
+              autoCapitalize="sentences"
+              returnKeyType="next"
+              onInputChange={inputChangeHandler}
+              initialValue={''}
+              initiallyValid
+              required
+            />
+            <Button title="Add user" onPress={submitHandler} />
+            <Button title="Sign out" onPress={signOut} />
+            {users &&
+              users.map((user, i) => {
+                return (
+                  <View key={user.email + i}>
+                    <Text>{user.email}</Text>
+                    <Text>{user.username}</Text>
+                  </View>
+                );
+              })}
+          </Box>
+        </ImageBackground>
+      </Box>
+    </KeyboardAwareScrollView>
   );
-};
-
-const getFontFamily = font => {
-  return font;
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
-    fontFamily: 'SFProDisplay-Ultralight',
-    lineHeight: 38,
-    fontSize: 28,
-    alignSelf: 'center',
-    paddingTop: 50,
-    paddingBottom: 50,
+    paddingTop: 24,
   },
   form: {
     height: '40%',

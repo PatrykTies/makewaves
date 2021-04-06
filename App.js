@@ -1,44 +1,36 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import type {Node} from 'react';
 import Amplify from 'aws-amplify';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
 import config from './aws-exports';
 import {withAuthenticator} from 'aws-amplify-react-native';
 import {ThemeProvider} from '@shopify/restyle';
-import {StatusBar, StyleSheet, useColorScheme} from 'react-native';
-import RootNavigator from './src/Navigation/Root';
+import {StatusBar} from 'react-native';
+import AdminNavigator from './src/navigation/AdminNavigator';
+import AuthenticationNavigator from './src/navigation/Authentication';
 import theme from './src/theme';
 
 Amplify.configure(config);
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+const AppStack = createStackNavigator();
 
+//TODO add User navigation stack
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar />
-      <RootNavigator />
+      <NavigationContainer>
+        <AppStack.Navigator headerMode="none">
+          <AppStack.Screen
+            name="Authentication"
+            component={AuthenticationNavigator}
+          />
+          <AppStack.Screen name="Admin" component={AdminNavigator} />
+        </AppStack.Navigator>
+      </NavigationContainer>
     </ThemeProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
