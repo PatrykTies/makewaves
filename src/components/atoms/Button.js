@@ -13,8 +13,6 @@ const Button = ({onPress, label, ...rest}) => {
     <TouchableOpacity onPress={onPress}>
       <Box
         {...props}
-        marginTop="xl"
-        marginBottom="lg"
         borderWidth={1}
         borderColor="primary"
         backgroundColor="primary">

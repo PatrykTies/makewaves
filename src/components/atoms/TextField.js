@@ -5,19 +5,17 @@ import {Card, Box, Text} from '../../theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const TextField = ({icon, label, error, touched, ...props}) => {
-  const {spacing, colors, fontSize} = useTheme();
+  const {colors, fontSize} = useTheme();
   return (
-    <>
-      <Text
-        variant="body"
-        style={{alignSelf: 'flex-start', paddingTop: spacing.lg}}>
-        {label}
-      </Text>
+    <Box
+      width="100%"
+      paddingHorizontal="lg"
+      paddingTop="lg"
+      position="relative">
+      <Text variant="body">{label}</Text>
       <Card
         variant="shadow_s"
         flexDirection="row"
-        alignItems="center"
-        width="100%"
         height={48}
         backgroundColor="primaryBckgr">
         <Box padding="md">
@@ -26,14 +24,16 @@ const TextField = ({icon, label, error, touched, ...props}) => {
         <TextInput
           {...props}
           underlineColorAndroid="transparent"
-          style={{width: '100%', height: '100%', fontSize: fontSize.lg}}
+          style={{
+            flex: 1,
+            fontSize: fontSize.lg,
+          }}
         />
       </Card>
-      <Text variant="error" style={{alignSelf: 'flex-start'}}>
-        error stuff
-      </Text>
-    </>
+    </Box>
   );
 };
 
 export default TextField;
+
+//<Text variant="inputError">error stuff</Text>

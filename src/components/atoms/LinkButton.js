@@ -8,7 +8,7 @@ const restyleFunctions = [spacing, border, backgroundColor];
 
 const LinkButton = ({onPress, label, ...rest}) => {
   return (
-    <BorderlessButton onPress={onPress}>
+    <BorderlessButton onPress={onPress} backgroundColor="white">
       <Text variant="cta" color="textDecorated">
         {label}
       </Text>

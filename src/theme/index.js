@@ -8,11 +8,19 @@ import {
 
 const palette = {
   white: 'white',
+  yellow: 'yellow',
   black: '#0B0B0B',
   grey: '#909190',
   blue: '#0000ff',
   red: 'red',
   none: 'transparent',
+};
+
+const fontSize = {
+  sm: 8,
+  body: 16,
+  lg: 20,
+  xl: 28,
 };
 
 const theme = createTheme({
@@ -28,6 +36,7 @@ const theme = createTheme({
     black: palette.black,
     shadow: palette.grey,
     error: palette.red,
+    yellow: palette.yellow,
   },
   spacing: {
     sm: 8,
@@ -35,12 +44,7 @@ const theme = createTheme({
     lg: 24,
     xl: 40,
   },
-  fontSize: {
-    sm: 8,
-    md: 16,
-    lg: 20,
-    xl: 28,
-  },
+  fontSize: fontSize,
   breakpoints: {
     phone: 0,
     tablet: 768,
@@ -65,42 +69,45 @@ const theme = createTheme({
     h1: {
       fontFamily: 'SFProDisplay-SemiBold',
       fontWeight: '400',
-      fontSize: 28,
+      fontSize: fontSize.xl,
       lineHeight: 42.5,
       color: 'textPrimary',
     },
     h1_deco: {
       fontFamily: 'SFProDisplay-SemiBold',
       fontWeight: '400',
-      fontSize: 28,
+      fontSize: fontSize.xl,
       lineHeight: 42.5,
       color: 'textDecorated',
     },
     subheader: {
       fontFamily: 'ShopifySans-SemiBold',
       fontWeight: '600',
-      fontSize: 28,
+      fontSize: fontSize.xl,
       lineHeight: 36,
       color: 'black',
     },
     body: {
       fontFamily: 'SFProDisplay-Regular',
-      fontSize: 16,
+      fontSize: fontSize.body,
       lineHeight: 28,
       color: 'textPrimary',
     },
     cta: {
-      fontFamily: 'SFProDisplay-Regular',
-      fontSize: 16,
+      fontFamily: 'SFProDisplay-Semibold',
+      fontSize: fontSize.body,
       lineHeight: 28,
-      letterSpacing: 2,
+      letterSpacing: 1,
       color: 'textPrimary',
     },
-    error: {
+    inputError: {
       fontFamily: 'SFProDisplay-Regular',
-      fontSize: 16,
+      fontSize: fontSize.body,
       lineHeight: 22,
       color: 'error',
+      position: 'absolute',
+      bottom: -22,
+      left: 24,
     },
   },
 });

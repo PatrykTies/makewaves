@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   ImageBackground,
   Image,
+  Dimensions,
 } from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -22,6 +23,7 @@ const LoginSchema = Yup.object().shape({
     .required('Required'),
 });
 
+const {width} = Dimensions.get('window');
 const Login = ({navigation}) => {
   const inputChangeHandler = () => {};
   const submitHandler = () => {};
@@ -34,18 +36,10 @@ const Login = ({navigation}) => {
           source={require('../../assets/makewaves.png')}
           style={styles.logo}
         />
-        <Box
-          alignItems="center"
-          position="absolute"
-          width="100%"
-          paddingTop="xl"
-          backgroundColor="none"
-          style={styles.title}>
-          <Text variant="h1">
+        <Box style={styles.screenContainer}>
+          <Text variant="h1" paddingBottom="xl">
             Keep calm and <Text variant="h1_deco">make waves</Text>
           </Text>
-        </Box>
-        <Box style={styles.screenContainer}>
           <Formik
             initialValues={{email: '', password: ''}}
             validationSchema={LoginSchema}
@@ -60,11 +54,10 @@ const Login = ({navigation}) => {
             }) => (
               <Card
                 variant="shadow_md"
-                alignItems="center"
                 justifyContent="center"
-                marginHorizontal="lg"
-                paddingHorizontal="xl"
-                paddingVertical="md"
+                alignItems="center"
+                width={width - 24}
+                paddingBottom="md"
                 backgroundColor="primaryBckgr">
                 <TextField
                   icon="envelope"
@@ -82,17 +75,27 @@ const Login = ({navigation}) => {
                   error={errors.password}
                   touched={touched.password}
                 />
-                <Box flexDirection="row" alignSelf="flex-end">
-                  <Button
-                    variant="primary"
-                    label="LOGIN"
-                    onPress={handleSubmit}
-                  />
-                  <LinkButton
-                    variant="primary"
-                    label="FORGOT?"
-                    onPress={() => navigation.navigate('PasswordReset')}
-                  />
+                <Box
+                  flexDirection="row"
+                  alignItems="center"
+                  width="100%"
+                  paddingTop="xl"
+                  paddingBottom="lg">
+                  <Box flex={1} />
+                  <Box flex={1}>
+                    <Button
+                      variant="primary"
+                      label="LOGIN"
+                      onPress={handleSubmit}
+                    />
+                  </Box>
+                  <Box flex={1} alignItems="center">
+                    <LinkButton
+                      variant="primary"
+                      label="FORGOT?"
+                      onPress={() => navigation.navigate('PasswordReset')}
+                    />
+                  </Box>
                 </Box>
               </Card>
             )}
@@ -107,10 +110,7 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'stretch',
-  },
-  title: {
-    top: '10%',
+    alignItems: 'center',
   },
   bgimage: {
     flex: 1,
