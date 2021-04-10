@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import {TextInput} from 'react-native';
 import {useTheme} from '@shopify/restyle';
 import {Card, Box, Text} from '../../theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const TextField = ({icon, label, error, touched, ...props}) => {
+const TextField = forwardRef(({icon, label, error, touched, ...props}, ref) => {
   const {colors, fontSize} = useTheme();
   return (
     <Box
@@ -23,17 +23,17 @@ const TextField = ({icon, label, error, touched, ...props}) => {
         </Box>
         <TextInput
           {...props}
+          {...{ref}}
           underlineColorAndroid="transparent"
           style={{
             flex: 1,
             fontSize: fontSize.lg,
           }}
         />
+        {error && touched && <Text variant="inputError">{error}</Text>}
       </Card>
     </Box>
   );
-};
+});
 
 export default TextField;
-
-//<Text variant="inputError">error stuff</Text>

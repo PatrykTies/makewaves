@@ -23,6 +23,13 @@ const fontSize = {
   xl: 28,
 };
 
+const spacing = {
+  sm: 8,
+  md: 16,
+  lg: 24,
+  xl: 40,
+};
+
 const theme = createTheme({
   colors: {
     primaryBckgr: palette.white,
@@ -38,12 +45,7 @@ const theme = createTheme({
     error: palette.red,
     yellow: palette.yellow,
   },
-  spacing: {
-    sm: 8,
-    md: 16,
-    lg: 24,
-    xl: 40,
-  },
+  spacing: spacing,
   fontSize: fontSize,
   breakpoints: {
     phone: 0,
@@ -106,8 +108,7 @@ const theme = createTheme({
       lineHeight: 22,
       color: 'error',
       position: 'absolute',
-      bottom: -22,
-      left: 24,
+      bottom: -spacing.lg,
     },
   },
 });
