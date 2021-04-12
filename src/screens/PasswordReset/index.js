@@ -3,27 +3,41 @@ import React, {useEffect, useState, useReducer, useCallback} from 'react';
 import {
   StyleSheet,
   Keyboard,
+  Dimensions,
   SafeAreaView,
   ImageBackground,
   Image,
 } from 'react-native';
-import {Formik} from 'formik';
+import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import Button from '../../components/atoms/Button';
 import TextField from '../../components/atoms/TextField';
+import LinkButton from '../../components/atoms/LinkButton';
 import {Text, Box, Card} from '../../theme';
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Required'),
-  password: Yup.string()
-    .min(2, 'Too Short!')
-    .max(30, 'Too Long!')
-    .required('Required'),
+const PassResetSchema = Yup.object().shape({
+  email: Yup.string().email('Keep on typing your email.').required('Required'),
 });
 
-const Login = () => {
+const {width, height: wHeight} = Dimensions.get('window');
+
+const PasswordReset = ({navigation}) => {
   const inputChangeHandler = () => {};
-  const submitHandler = () => {};
+  const submitHandler = () => {
+    navigation.navigate('ConfirmPassword');
+  };
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    touched,
+  } = useFormik({
+    initialValues: {email: ''},
+    validationSchema: PassResetSchema,
+    onSubmit: v => submitHandler(v),
+  });
   return (
     <SafeAreaView flex={1}>
       <ImageBackground
@@ -33,69 +47,56 @@ const Login = () => {
           source={require('../../assets/makewaves.png')}
           style={styles.logo}
         />
-        <Box
-          alignItems="center"
-          position="absolute"
-          width="100%"
-          paddingTop="xl"
-          backgroundColor="none"
-          style={styles.title}>
-          <Text variant="h1">
-            Keep calm and <Text variant="h1_deco">make waves</Text>
-          </Text>
-        </Box>
         <Box style={styles.screenContainer}>
-          <Formik
-            initialValues={{email: '', password: ''}}
-            validationSchema={LoginSchema}
-            onSubmit={values => submitHandler(values)}>
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-            }) => (
-              <Card
-                variant="shadow_md"
-                alignItems="center"
-                justifyContent="center"
-                marginHorizontal="lg"
-                paddingHorizontal="xl"
-                paddingVertical="md"
-                backgroundColor="primaryBckgr">
-                <TextField
-                  icon="envelope"
-                  label="Email"
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  error={errors.email}
-                  touched={touched.email}
+          <Text variant="h1" paddingBottom="xl">
+            Request password <Text variant="h1_deco">reset</Text>
+          </Text>
+          <Text
+            variant="h2"
+            paddingBottom="xl"
+            paddingHorizontal="xl"
+            textAlign="center">
+            After few minutes check your email box for reset code
+          </Text>
+          <Card
+            variant="shadow_md"
+            justifyContent="center"
+            alignItems="center"
+            width={width - 24}
+            paddingBottom="md"
+            backgroundColor="primaryBckgr">
+            <TextField
+              icon="envelope"
+              label="Email"
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              error={errors.email}
+              touched={touched.email}
+              autoCompleteType="email"
+              autoCapitalize="none"
+              returnKeyType="next"
+              returnKeyLabel="Next"
+              onSubmitEditing={() => handleSubmit()}
+            />
+            <Box
+              flexDirection="row"
+              alignItems="center"
+              width="100%"
+              paddingTop="xl"
+              paddingBottom="lg">
+              <Box flex={1} alignItems="center">
+                <LinkButton
+                  variant="primary"
+                  label="BACK"
+                  onPress={() => navigation.navigate('Login')}
                 />
-                <TextField
-                  icon="key"
-                  label="Password"
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  error={errors.password}
-                  touched={touched.password}
-                />
-                <Box flexDirection="row" alignSelf="flex-end">
-                  <Button
-                    variant="primary"
-                    label="LOGIN"
-                    onPress={handleSubmit}
-                  />
-                  <Button
-                    variant="primaryInverse"
-                    label="RESET"
-                    onPress={() => {}}
-                  />
-                </Box>
-              </Card>
-            )}
-          </Formik>
+              </Box>
+              <Box flex={1}>
+                <Button variant="primary" label="SEND" onPress={handleSubmit} />
+              </Box>
+              <Box flex={1} />
+            </Box>
+          </Card>
         </Box>
       </ImageBackground>
     </SafeAreaView>
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'stretch',
+    alignItems: 'center',
   },
   title: {
     top: '10%',
@@ -125,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default PasswordReset;

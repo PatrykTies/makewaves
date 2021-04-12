@@ -1,8 +1,8 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Login from '../screens/Login';
 import PasswordReset from '../screens/PasswordReset';
+import ConfirmPassword from '../screens/ConfirmPassword';
 
 const AuthenticationStack = createStackNavigator();
 
@@ -13,6 +13,10 @@ const AuthenticationNavigator = props => {
       <AuthenticationStack.Screen
         name={'PasswordReset'}
         component={PasswordReset}
+      />
+      <AuthenticationStack.Screen
+        name={'ConfirmPassword'}
+        component={ConfirmPassword}
       />
     </AuthenticationStack.Navigator>
   );

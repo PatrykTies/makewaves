@@ -82,12 +82,11 @@ const theme = createTheme({
       lineHeight: 42.5,
       color: 'textDecorated',
     },
-    subheader: {
-      fontFamily: 'ShopifySans-SemiBold',
-      fontWeight: '600',
-      fontSize: fontSize.xl,
+    h2: {
+      fontFamily: 'SFProDisplay-Regular',
+      fontSize: fontSize.lg,
       lineHeight: 36,
-      color: 'black',
+      color: 'textPrimary',
     },
     body: {
       fontFamily: 'SFProDisplay-Regular',
