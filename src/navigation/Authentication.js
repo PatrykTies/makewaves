@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from '../screens/Login';
 import PasswordReset from '../screens/PasswordReset';
 import ConfirmPassword from '../screens/ConfirmPassword';
+import AdminCalendar from '../screens/AdminCalendar';
 
 const AuthenticationStack = createStackNavigator();
 

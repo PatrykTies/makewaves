@@ -1,15 +1,17 @@
 import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from '../screens/HomeScreen';
+import AdminScreen from '../screens/AdminScreen';
+import AdminCalendar from '../screens/AdminCalendar';
 
-const AdminNStack = createStackNavigator();
+const AdminStack = createStackNavigator();
 
 const AdminNavigator = props => {
   return (
-    <AdminNStack.Navigator headerMode="none">
-      <AdminNStack.Screen name={'AdminHome'} component={HomeScreen} />
-    </AdminNStack.Navigator>
+    <AdminStack.Navigator headerMode="none">
+      <AdminStack.Screen name={'AdminScreen'} component={AdminScreen} />
+      <AdminStack.Screen name={'AdminCalendar'} component={AdminCalendar} />
+    </AdminStack.Navigator>
   );
 };
 

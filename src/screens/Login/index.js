@@ -1,15 +1,8 @@
 import Amplify, {Auth, API} from 'aws-amplify';
-import React, {
-  useEffect,
-  useState,
-  useReducer,
-  useCallback,
-  useRef,
-} from 'react';
+import React, {useRef} from 'react';
 import {
   StatusBar,
   StyleSheet,
-  Keyboard,
   SafeAreaView,
   ImageBackground,
   Image,
@@ -23,6 +16,7 @@ import Button from '../../components/atoms/Button';
 import LinkButton from '../../components/atoms/LinkButton';
 import TextField from '../../components/atoms/TextField';
 import {Text, Box, Card} from '../../theme';
+import useLoginContent from './query';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Keep on typing your email.').required('Required'),
@@ -37,7 +31,9 @@ const {width, height: wHeight} = Dimensions.get('window');
 const Login = ({navigation}) => {
   const password = useRef(null);
   const inputChangeHandler = () => {};
-  const submitHandler = () => {};
+  const submitHandler = () => {
+    navigation.navigate('AdminScreens');
+  };
   const {
     handleChange,
     handleBlur,
@@ -50,6 +46,16 @@ const Login = ({navigation}) => {
     validationSchema: LoginSchema,
     onSubmit: v => submitHandler(v),
   });
+
+  const {status, data, error, isFetching} = useLoginContent();
+
+  if (status === 'loading' || status === 'error') {
+    console.log('Error', error);
+    return null;
+  }
+
+  const {text} = data.titlePrimary;
+
   return (
     <KeyboardAwareScrollView scrollEnabled={false}>
       <SafeAreaView
@@ -65,7 +71,7 @@ const Login = ({navigation}) => {
           />
           <Box style={styles.screenContainer}>
             <Text variant="h1" paddingBottom="xl">
-              Keep calm and <Text variant="h1_deco">make waves</Text>
+              {text} <Text variant="h1_deco">make waves</Text>
             </Text>
             <Card
               variant="shadow_md"
