@@ -9,6 +9,7 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
+
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
@@ -30,7 +31,6 @@ const {width, height: wHeight} = Dimensions.get('window');
 
 const Login = ({navigation}) => {
   const password = useRef(null);
-  const inputChangeHandler = () => {};
   const submitHandler = () => {
     navigation.navigate('AdminScreens');
   };

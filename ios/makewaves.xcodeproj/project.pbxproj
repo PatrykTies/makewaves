@@ -194,8 +194,8 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				D141CB2B499B2DAC8ACF6DA2 /* [CP] Embed Pods Frameworks */,
 				B979408FB46C596A852F8D88 /* [CP] Copy Pods Resources */,
+				088E49A42905EB369A9BC5D6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -217,8 +217,8 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				B6207346A084C123F62008AB /* [CP] Embed Pods Frameworks */,
 				2C0415EFE7D82F7CB88D0C6E /* [CP] Copy Pods Resources */,
+				47BD796A12B7C9539E2FD9D8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -308,6 +308,23 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
+		088E49A42905EB369A9BC5D6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-makewaves-makewavesTests/Pods-makewaves-makewavesTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-makewaves-makewavesTests/Pods-makewaves-makewavesTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-makewaves-makewavesTests/Pods-makewaves-makewavesTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2C0415EFE7D82F7CB88D0C6E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -323,6 +340,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-makewaves/Pods-makewaves-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		47BD796A12B7C9539E2FD9D8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-makewaves/Pods-makewaves-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-makewaves/Pods-makewaves-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-makewaves/Pods-makewaves-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5BB6AFE95B51B0FE2F3B2C9D /* [CP] Check Pods Manifest.lock */ = {
@@ -369,23 +403,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B6207346A084C123F62008AB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-makewaves/Pods-makewaves-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-makewaves/Pods-makewaves-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-makewaves/Pods-makewaves-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B979408FB46C596A852F8D88 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -401,23 +418,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-makewaves-makewavesTests/Pods-makewaves-makewavesTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D141CB2B499B2DAC8ACF6DA2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-makewaves-makewavesTests/Pods-makewaves-makewavesTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-makewaves-makewavesTests/Pods-makewaves-makewavesTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-makewaves-makewavesTests/Pods-makewaves-makewavesTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
