@@ -1,6 +1,7 @@
-import {backgroundColor} from '@shopify/restyle';
+import React, {useState, useEffect} from 'react';
 import _ from 'lodash';
-import React, {Component} from 'react';
+import moment from 'moment';
+import {backgroundColor} from '@shopify/restyle';
 import {
   Platform,
   Alert,
@@ -52,6 +53,68 @@ const futureDates = getFutureDates(9);
 const dates = [fastDate, today].concat(futureDates);
 const themeColor = '#00AAAF';
 const lightThemeColor = '#EBF9F9';
+
+const getCurrentWeek = () => {
+  var currentDate = moment();
+
+  var weekStart = currentDate.clone().startOf('isoWeek');
+  var weekEnd = currentDate.clone().endOf('isoWeek');
+
+  let current_week = {};
+
+  for (var i = 0; i <= 6; i++) {
+    const dayAsKey = moment(weekStart).add(i, 'days').format('YYYY-MM-DD');
+    current_week = {
+      ...current_week,
+      [dayAsKey]: {
+        selected: true,
+        startingDay: i === 0 ? true : false,
+        endingDay: i === 6 ? true : false,
+        color: '#83AF9B',
+      },
+    };
+  }
+
+  return current_week;
+};
+const timestamp = '2021-08-01';
+const isWeekSubmitted = timestamp => {
+  var currentDate = moment();
+
+  var weekStart = currentDate.clone().startOf('isoWeek');
+  var weekEnd = currentDate.clone().endOf('isoWeek');
+
+  //Object.keys(currentWeek).find();
+  // will come from api as status === 'approved' / 'submitted' / 'under_review' from admin
+  // need a function that will spit out all week dates for single given date
+  // 02.08.2021 will genererate {'first_day', second, etc} whole week
+  // single day timestamp comes from api
+
+  // I need BE to generate 1 year ahead worth of data - 52 weeks
+  // with ability to PUT/update per date key and save it for given week
+  // PUT new record where week start is 09.08.2021
+  // from FE send weekStart as a save key
+  // if user submitts on 11.08.21 , it will send weekStart, submit date, approved date from admin
+  /*
+    {
+      id: 12323n12jk3n123jk12n31, //BE generated
+      week_commenced: '09.08.2021', //BE generated
+      submitted: '11.08.2021', //FE generated
+      approved: '13.08.2021', //FE generated
+      week_days : ['09.08.2021','10.08.2021', ...],
+      data: {...}
+    },
+    {
+      id: 12323n12jk3n123jk12n31234fw, //BE generated
+      week_commenced: '09.08.2021', //BE generated
+      submitted: null, //BE generated
+      approved: null, //BE generated
+      week_days : ['09.08.2021','10.08.2021', ...], //BE generated
+      data: null //BE generated
+    }
+  */
+  return true;
+};
 
 // this generates array od days in format that calendar wants
 // ['2019-06-01','2019-06-01','2019-06-01','2019-06-01']
@@ -134,40 +197,66 @@ const ITEMS = [
   },
 ];
 
-export default class ExpandableCalendarScreen extends Component {
-  onDateChanged = (/* date, updateSource */) => {
+const ExpandableCalendarScreen = ({navigation, weekView}) => {
+  const [currentWeek, setCurrentWeek] = useState();
+  useEffect(() => {
+    //if (currentWeek) return;
+    setCurrentWeek(getCurrentWeek());
+  }, [currentWeek, setCurrentWeek]);
+
+  const onDateChanged = (/* date, updateSource */) => {
     // console.warn('ExpandableCalendarScreen onDateChanged: ', date, updateSource);
     // fetch and set data for date + week ahead
   };
 
-  onMonthChange = (/* month, updateSource */) => {
+  const onMonthChange = (/* month, updateSource */) => {
     // console.warn('ExpandableCalendarScreen onMonthChange: ', month, updateSource);
   };
 
-  buttonPressed() {
+  const buttonPressed = () => {
     Alert.alert('show more');
-  }
+  };
 
-  itemPressed(id) {
+  const itemPressed = id => {
     Alert.alert(id);
-  }
+  };
 
-  renderEmptyItem() {
+  // renderEmptyItem() {
+  //   return (
+  //     <View style={styles.emptyItem}>
+  //       <Text style={styles.emptyItemText}>No Events Planned</Text>
+  //     </View>
+  //   );
+  // }
+  const renderEmptyItem = () => {
     return (
-      <View style={styles.emptyItem}>
-        <Text style={styles.emptyItemText}>No Events Planned</Text>
-      </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('SelectScreen')}
+        style={styles.item}
+        testID={testIDs.agenda.ITEM}>
+        <View>
+          <Text style={styles.itemHourText}>Test</Text>
+          <Text style={styles.itemDurationText}>dasdas</Text>
+        </View>
+        <Card
+          variant="shadow_md"
+          justifyContent="center"
+          alignItems="center"
+          backgroundColor="yellow">
+          <Text style={styles.itemTitleText}>ADD NEW ENTRY</Text>
+        </Card>
+      </TouchableOpacity>
     );
-  }
+  };
 
-  renderItem = ({item}) => {
+  const renderItem = ({item}) => {
     if (_.isEmpty(item)) {
-      return this.renderEmptyItem();
+      return renderEmptyItem();
     }
 
     return (
       <TouchableOpacity
-        onPress={() => this.itemPressed(item.title)}
+        onPress={() => itemPressed(item.title)}
         style={styles.item}
         testID={testIDs.agenda.ITEM}>
         <View>
@@ -183,13 +272,13 @@ export default class ExpandableCalendarScreen extends Component {
         </Card>
 
         <View style={styles.itemButtonContainer}>
-          <Button color={'grey'} title={'Edit'} onPress={this.buttonPressed} />
+          <Button color={'grey'} title={'Edit'} onPress={buttonPressed} />
         </View>
       </TouchableOpacity>
     );
   };
 
-  getMarkedDates = () => {
+  const getMarkedDates = () => {
     const marked = {};
     ITEMS.forEach(item => {
       // NOTE: only mark dates with data
@@ -202,7 +291,7 @@ export default class ExpandableCalendarScreen extends Component {
     return marked;
   };
 
-  getTheme = () => {
+  const getTheme = () => {
     const disabledColor = 'grey';
 
     return {
@@ -238,63 +327,61 @@ export default class ExpandableCalendarScreen extends Component {
     };
   };
 
-  render() {
-    const {width, height: wHeight} = Dimensions.get('window');
-    return (
-      <SafeAreaView
-        height={
-          wHeight - (Platform.OS === 'android' ? StatusBar.currentHeight : 0)
-        }>
-        <CalendarProvider
-          date={ITEMS[0].title}
-          onDateChanged={this.onDateChanged}
-          onMonthChange={this.onMonthChange}
-          showTodayButton
-          disabledOpacity={0.6}
-          // theme={{
-          //   todayButtonTextColor: themeColor
-          // }}
-          // todayBottomMargin={16}
-        >
-          {this.props.weekView ? (
-            <WeekCalendar
-              testID={testIDs.weekCalendar.CONTAINER}
-              firstDay={1}
-              markedDates={this.getMarkedDates()}
-            />
-          ) : (
-            <ExpandableCalendar
-              testID={testIDs.expandableCalendar.CONTAINER}
-              // horizontal={false}
-              // hideArrows
-              //disablePan
-              //hideKnob
-              initialPosition={ExpandableCalendar.positions.OPEN}
-              // calendarStyle={styles.calendar}
-              // headerStyle={styles.calendar} // for horizontal only
-              // disableWeekScroll
-              // theme={this.getTheme()}
-              disableAllTouchEventsForDisabledDays
-              firstDay={1} //this makes Monday as first day to display
-              //markedDates={this.getMarkedDates()} // {'2019-06-01': {marked: true}, '2019-06-02': {marked: true}, '2019-06-03': {marked: true}};
-              leftArrowImageSource={require('../../assets/previous.png')}
-              rightArrowImageSource={require('../../assets/next.png')}
-              markedDates={markedWeeks}
-              // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
-              markingType={'period'}
-            />
-          )}
-          <AgendaList
-            sections={ITEMS}
-            extraData={this.state}
-            renderItem={this.renderItem}
-            // sectionStyle={styles.section}
+  const {width, height: wHeight} = Dimensions.get('window');
+  return (
+    <SafeAreaView
+      height={
+        wHeight - (Platform.OS === 'android' ? StatusBar.currentHeight : 0)
+      }>
+      <CalendarProvider
+        date={ITEMS[0].title}
+        onDateChanged={onDateChanged}
+        onMonthChange={onMonthChange}
+        showTodayButton
+        disabledOpacity={0.6}
+        // theme={{
+        //   todayButtonTextColor: themeColor
+        // }}
+        // todayBottomMargin={16}
+      >
+        {weekView ? (
+          <WeekCalendar
+            testID={testIDs.weekCalendar.CONTAINER}
+            firstDay={1}
+            markedDates={markedWeeks}
           />
-        </CalendarProvider>
-      </SafeAreaView>
-    );
-  }
-}
+        ) : (
+          <ExpandableCalendar
+            testID={testIDs.expandableCalendar.CONTAINER}
+            // horizontal={false}
+            // hideArrows
+            //disablePan
+            //hideKnob
+            initialPosition={ExpandableCalendar.positions.OPEN}
+            // calendarStyle={styles.calendar}
+            // headerStyle={styles.calendar} // for horizontal only
+            // disableWeekScroll
+            // theme={getTheme()}
+            disableAllTouchEventsForDisabledDays
+            firstDay={1} //this makes Monday as first day to display
+            //markedDates={getMarkedDates()} // {'2019-06-01': {marked: true}, '2019-06-02': {marked: true}, '2019-06-03': {marked: true}};
+            leftArrowImageSource={require('../../assets/previous.png')}
+            rightArrowImageSource={require('../../assets/next.png')}
+            markedDates={markedWeeks}
+            // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
+            markingType={'period'}
+          />
+        )}
+        <AgendaList
+          sections={ITEMS}
+          extraData={{}}
+          renderItem={renderItem}
+          // sectionStyle={styles.section}
+        />
+      </CalendarProvider>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   calendar: {
@@ -437,3 +524,5 @@ const markedWeeks = {
     color: '#83AF9B',
   },
 };
+
+export default ExpandableCalendarScreen;
